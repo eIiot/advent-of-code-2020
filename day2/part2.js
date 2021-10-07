@@ -1,5 +1,4 @@
-var string = `
-4-8 n: dnjjrtclnzdnghnbnn
+var string = `4-8 n: dnjjrtclnzdnghnbnn
 5-6 r: rrrrcqr
 2-4 p: pqhpppwpfmr
 1-13 p: spppppppppppvp
@@ -998,21 +997,63 @@ var string = `
 2-4 v: jvgxmphvr
 2-6 r: rrzrcd
 10-16 n: lvknnwnnvsmnnnnhn
-12-13 r: rrrpjrrrrrrtfrkwmr
-`
+12-13 r: rrrpjrrrrrrtfrkwmr`
 
 const lineArray = string.split('\n');
 
 const arraySplit = [];
+var validPasswords = 0;
 
 for (let i = 0; i < lineArray.length; i++) {
   const element = lineArray[i];
   const elementArray = element.split(' ');
-  // remove the ':' from the array
-  console.log(elementArray[1]);
-  elementArray[1] = elementArray[1].substring(0, elementArray[1].length - 1);
-  
+
+  // remove semicolon
+  elementArray[1] = elementArray[1].replace(':', '');
+
+  // split array[0] into 2 parts, by '-'
+  const elementArray0 = elementArray[0].split('-');
+
+  // remove original array[0]
+  elementArray.splice(0, 1);
+
+  // inset those 2 parts into the array at index 0
+  elementArray.splice(0, 0, elementArray0[0], elementArray0[1]);
+
+  console.log(elementArray[1])
   arraySplit.push(elementArray);
-}
+};
+
+// validate passwords, append 'true' or 'false' on end of each array
+for (let i = 0; i < arraySplit.length; i++) {
+  const element = arraySplit[i];
+
+  var password = element[3]
+  const passwordArray = password.split('');
+  var char = element[2]
+  var firstChar = parseInt(element[0])-1;
+  var secondChar = parseInt(element[1])-1;
+
+  if (passwordArray[firstChar] === char) {
+    if (passwordArray[secondChar] === char) {
+      element[4] = false;
+    } else {
+      element[4] = true;
+      validPasswords++;
+    };
+  };
+  
+  if (passwordArray[secondChar] === char) {
+    if (passwordArray[firstChar] === char) {
+      element[4] = false;
+    } else {
+      element[4] = true;
+      validPasswords++;
+    };
+  };
+
+  arraySplit[i] = element;
+};
 
 console.log(arraySplit);
+console.log(validPasswords);
