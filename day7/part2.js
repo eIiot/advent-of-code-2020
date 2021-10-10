@@ -624,9 +624,11 @@ for (let i = 0; i < rules.length; i++) {
     var lastIndex = bag.lastIndexOf(" ");
 
     if (bag !== 'no other bags') {
-      var updatedBag = bag.substring(0, lastIndex).substring(2);
+      var bagName = bag.substring(0, lastIndex).substring(2);
+      var bagNum = parseInt(bag.charAt(0));
+      var updatedBag = [bagName,bagNum]
     } else {
-      updatedBag = 'no other';
+      updatedBag = ['no other', 0];
     }
 
     rule2[1][j] = updatedBag;
@@ -645,39 +647,29 @@ for (let i = 0; i < rules.length; i++) {
   };
 };
 
-// loop through bags object, and check through every sub bag, until you find "gold". If you find gold, continue to next item
-
-function findSubBags(bag) {
+function findNumOfSubBags(bag) {
   if (bag == undefined) {
     return;
   };
 
-  for (let i = 0; i <= bag.length; i++) {
-    if (i === bag.length) {
-      return false;
+  var subBags = 0;
+
+  for (let i = 0; i < bag.length; i++) {
+    
+    var subBag = bag[i][0];
+    var subBagNum = bag[i][1];
+
+    if (subBag === 'no other') {
+      continue;
     };
 
-    var subBag = bag[i];
-
-    if (subBag === 'shiny gold') {
-      return true;
-    };
-
-    if (findSubBags(bags[subBag])) {
-      return true;
-    };
+    subBags += subBagNum + (subBagNum * findNumOfSubBags(bags[subBag]));
   };
-};
 
-console.log(findSubBags(bags['dark orange']));
-
-for (const key in bags) {
-  if (findSubBags(bags[key])) {
-    totalBags++;
-  }
+  return subBags;
 };
 
 console.log(bags);
-console.log(totalBags);
+console.log(findNumOfSubBags(bags['shiny gold']));
 
 debugger;
