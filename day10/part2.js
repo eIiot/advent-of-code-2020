@@ -151,82 +151,62 @@ var testInput2 = `28
 10
 3`
 
-// input = testInput2;
+var testInput3 = `1
+2
+3
+4
+5
+8
+9
+10`
 
-console.log('starting, this may take a while')
+// input = testInput2;
 
 adapters = input.split('\n').map(function(x) {return(parseInt(x,10))}).sort(function(a, b) {return a - b});
 
 adapters.push(adapters[adapters.length-1]+3);
 adapters.unshift(0);
 
-var stepsList = [[0]];
+var lastThreeJump = 0;
 
-var acceptedJumpValues = [1,2,3];
+const splitAdapters = [[adapters[0]]];
 
-for (let i = 0; i < adapters.length; i++) {
-  var numberOfJumps = 0;
+let last = adapters[0];
 
-  const adapter = adapters[i];
-  const nextAdapter = adapters[i+1];
-  const nextAdapter2 = adapters[i+2];
-  const nextAdapter3 = adapters[i+3];
-
-  const newAdapter = [adapter,[]];
-  
-  if (acceptedJumpValues.includes(nextAdapter - adapter)) {
-    newAdapter[1].push(nextAdapter);
-  };
-
-  if (acceptedJumpValues.includes(nextAdapter2 - adapter)) {
-    newAdapter[1].push(nextAdapter2);
-  };
-
-  if (acceptedJumpValues.includes(nextAdapter3 - adapter)) {
-    newAdapter[1].push(nextAdapter3);
-  };
-
-  adapters[i] = newAdapter;
+for (const item of adapters.slice(1)) {
+  if (item - last > 2) splitAdapters.push([]);
+  splitAdapters[splitAdapters.length - 1].push(item);
+  last = item;
 };
 
-for (let i = 0; i < adapters.length; i++) {
-  const adapter = adapters[i][0];
-  const nextValues = adapters[i][1];
+// compute # of possibilites in splitAdapters
 
-  for (let j = 0; j < stepsList.length; j++) {
-    const steps = stepsList[j];
-    
-    if (steps[steps.length-1] === adapter) {
+let groupValues = [];
 
-      // add arrays with each next step
-      for (let k = 0; k < nextValues.length; k++) {
-        const nextValue = nextValues[k];
+// array for determening values
 
-        const newArray = steps.slice();
+var specialArray = [0,1,2,4];
 
-        newArray.push(nextValue);
-        
-        stepsList.push(newArray);
+var arrayLength = 100;
 
-        // console log legnth of stepsList if it is a multiple of 1000
-        if (stepsList.length % 100000 === 0) {
-          console.log(stepsList.length);
-        };
-      };
-    };
-
-    if (adapters[i-3] != undefined && steps[steps.length-1] < adapters[i-1][0]) {
-      stepsList.splice(j,1)
-    }
-  };
+for (let i = 4; i < arrayLength; i++) {
+  specialArray.push(specialArray[i-3]+specialArray[i-2]+specialArray[i-1]);
 };
 
-// remove all stepsList items without a value of 22;
+for (let i = 0; i < splitAdapters.length; i++) {
+  const adapterGroup = splitAdapters[i];
 
-stepsList = stepsList.filter(item => item[item.length-1] == adapters[adapters.length-1][0]);
+  // filter out important groups
+
+  if (adapterGroup.length > 1) {
+    groupValues.push(specialArray[adapterGroup.length-1]);
+  };
+};
 
 console.log(adapters);
+console.log(splitAdapters);
+console.log(groupValues);
 
-console.log(stepsList.length);
+console.log(groupValues.reduce((a, b)=> a*b, 1));
 
 debugger;
