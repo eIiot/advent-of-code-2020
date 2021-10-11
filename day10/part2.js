@@ -207,7 +207,7 @@ for (let i = 0; i < adapters.length; i++) {
         stepsList.push(newArray);
 
         // console log legnth of stepsList if it is a multiple of 1000
-        if (stepsList.length % 1000000 === 0) {
+        if (stepsList.length % 100000 === 0) {
           console.log(stepsList.length);
         };
       };
