@@ -151,7 +151,7 @@ var testInput2 = `28
 10
 3`
 
-input = testInput2;
+// input = testInput2;
 
 console.log('starting, this may take a while')
 
@@ -227,6 +227,6 @@ stepsList = stepsList.filter(item => item[item.length-1] == adapters[adapters.le
 
 console.log(adapters);
 
-console.log(stepsList);
+console.log(stepsList.length);
 
 debugger;
