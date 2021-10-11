@@ -151,6 +151,8 @@ var testInput2 = `28
 10
 3`
 
+input = testInput2;
+
 console.log('starting, this may take a while')
 
 adapters = input.split('\n').map(function(x) {return(parseInt(x,10))}).sort(function(a, b) {return a - b});
@@ -212,6 +214,10 @@ for (let i = 0; i < adapters.length; i++) {
         };
       };
     };
+
+    if (adapters[i-3] != undefined && steps[steps.length-1] < adapters[i-1][0]) {
+      stepsList.splice(j,1)
+    }
   };
 };
 
