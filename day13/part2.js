@@ -4,7 +4,7 @@ var input = `1006697
 var testInput = `939
 7,13,x,x,59,x,31,19`;
 
-// input = testInput;
+input = testInput;
 
 var lines = input.split('\n');
 
@@ -23,7 +23,7 @@ for (let i = 0; i < busses.length; i++) {
 var foundBusses = false;
 
 var timestamp = originalTimestamp;
-var timestamp = 100000000000000;
+// var timestamp = 100000000000000;
 
 // iterate through timestamps;
 while (!foundBusses) {
@@ -36,9 +36,9 @@ while (!foundBusses) {
     if ((timestamp+i) % bus == 0) {
       noOfBusses++;
     } else {
-      if (timestamp % 10000000 == 0) {
-        console.log(timestamp);
-      }
+      // if (timestamp % 100 == 0) {
+      //   console.log(timestamp);
+      // };
       break;
     };
   };
