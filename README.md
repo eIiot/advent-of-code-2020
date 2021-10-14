@@ -4,5 +4,5 @@ This is a collection all of my challenge completions for the advent of code 2020
 Although lots of this is just for fun, I learned a lot, and will 100% be doing AOC in 2021!
 
 ### FAQ
-**Why does every file end in `debugger;`?**
+**Why does every file end in `debugger;`?**\n
 Because VSCode won't see variables when the script exits.
