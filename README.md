@@ -13,6 +13,9 @@ Because it's fun :)
 
 Because I'm familiar with JS, and I wanted to try out TS
 
+## Why use `debugger;` at the end of every file?
+It allows VSCode to save the variables in the debugger instead of exiting.
+
 ## Rules (for myself)
 - No Copilot
 - No npm packages
