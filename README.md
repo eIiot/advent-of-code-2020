@@ -1,9 +1,18 @@
-# Advent of Code 2020
-This is a collection all of my challenge completions for the advent of code 2020! Lots of this code is bodged, but it all works as intended :)
+# Advent of Code
 
-Although lots of this is just for fun, I learned a lot, and will 100% be doing AOC in 2021!
+## What's the Advent of Code?
+Advent of Code is an annual set of Christmas-themed computer programming challenges that follow an Advent calendar. It has been running since 2015. The programming puzzles cover a variety of skill sets and skill levels and can be solved using any programming language.
 
-### FAQ
-**Why does every file end in `debugger;`?**
+## Can I use this?
+Yes, although it's badly written
 
-Because VSCode won't see variables when the script exits.
+## Why?
+Because it's fun :)
+
+## Why JS?
+
+Because I'm familiar with JS
+
+## Rules (for myself)
+- No Copilot
+- No npm packages
