@@ -1,0 +1,1 @@
+Thank you to [this comment](https://www.reddit.com/r/adventofcode/comments/r9z49j/comment/ho4rf7d/?utm_source=share&utm_medium=web2x&context=3) for saving my sanity

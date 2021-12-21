@@ -20,8 +20,9 @@
     "prefix": "aocinit",
     "body": [
       "const fs = require('fs');\n",
-      "var input = fs.readFileSync('./input.txt','utf-8');\n",
-      "const $1 = input.split(/\\r?\\n/);\n",  
+      "var input = fs.readFileSync('./example.txt','utf-8');",
+      "input = input.replace(/\\r/g, \"\");\n",
+      "const $1 = input.split(/\\n/);\n",  
       "$0\n",
       "export {}",
       "debugger;"
