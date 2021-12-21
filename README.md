@@ -9,9 +9,9 @@ Yes, although it's badly written
 ## Why?
 Because it's fun :)
 
-## Why JS?
+## Why TS?
 
-Because I'm familiar with JS
+Because I'm familiar with JS, and I wanted to try out TS
 
 ## Rules (for myself)
 - No Copilot
