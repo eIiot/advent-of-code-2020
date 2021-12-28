@@ -1,0 +1,1 @@
+I spent too long typing to implement it with math :/

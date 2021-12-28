@@ -9,9 +9,8 @@ Yes, although it's badly written
 ## Why?
 Because it's fun :)
 
-## Why TS?
-
-Because I'm familiar with JS, and I wanted to try out TS
+## Why so many languages?
+Because AOC is a great way to learn skills in a new language
 
 ## Why use `debugger;` at the end of every file?
 It allows VSCode to save the variables in the debugger instead of exiting.

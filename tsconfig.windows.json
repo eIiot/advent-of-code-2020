@@ -5,7 +5,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "typeRoots": [
-      "/Users/eliot/.nvm/versions/node/v16.9.1/lib/node_modules/@types"
+      "C:/Users/eliot/AppData/Roaming/npm/node_modules/@types"
     ],
     "outDir": "js",
     "rootDir": "./"
