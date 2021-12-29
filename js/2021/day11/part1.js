@@ -24,24 +24,25 @@ function getSurroundingCells(x, y, array) {
         var ymod = modifier[1];
         // get surrounding cells, push ones that are not null
         if (!(!array[y + ymod] || !array[y + ymod][x + xmod])) {
-            cells.push([y + ymod, x + xmod]);
+            cells.push([x + xmod, y + ymod]);
         }
     });
     return cells;
 }
+;
 function flash(x, y, array, flashed) {
     // octopuses can only flash once per step
     if (flashed.includes([x, y].toString()))
         return;
     flashed.push([x, y].toString());
+    totalFlashes++;
     // flashing increases the energy of all ajacent octopuses by 1
     var surrounding = getSurroundingCells(x, y, array);
     for (var i = 0; i < surrounding.length; i++) {
         var x_1 = surrounding[i][0];
         var y_1 = surrounding[i][1];
         array[y_1][x_1]++;
-        if (array[y_1][x_1] > 9 && !flashed.includes([x_1, y_1].toString())) {
-            console.log("SubFlashing ".concat([x_1, y_1], " with a value of ").concat(array[y_1][x_1]++));
+        if (array[y_1][x_1] > 9) {
             flash(x_1, y_1, array, flashed);
         }
         ;
@@ -49,19 +50,17 @@ function flash(x, y, array, flashed) {
     ;
 }
 ;
-for (var i = 0; i < 100; i++) {
+var totalFlashes = 0;
+for (var i = 0; i < 195; i++) {
     // increase energy level of every octopus by 1
     octopuses = octopuses.map(function (row) { return row.map(function (cell) { return ++cell; }); });
     // any octopus with a cell value >9 flashes
     var flashed = [];
-    var oldArray = JSON.parse(JSON.stringify(octopuses));
-    console.log(oldArray);
-    for (var i_1 = 0; i_1 < oldArray.length; i_1++) {
-        var row = oldArray[i_1];
+    for (var i_1 = 0; i_1 < octopuses.length; i_1++) {
+        var row = octopuses[i_1];
         for (var j = 0; j < row.length; j++) {
             var octopus = row[j];
             if (octopus > 9) {
-                console.log("Flashing ".concat([j, i_1], " with a value of ").concat(octopus));
                 flash(j, i_1, octopuses, flashed);
             }
         }
@@ -72,9 +71,8 @@ for (var i = 0; i < 100; i++) {
         var cell = flash.split(',');
         octopuses[cell[1]][cell[0]] = 0;
     });
-    // what does it look like?
-    debugger;
 }
 ;
+console.log(totalFlashes);
 debugger;
 //# sourceMappingURL=part1.js.map
