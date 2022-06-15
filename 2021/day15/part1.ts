@@ -4,7 +4,7 @@ import * as example from "./example";
 import PriorityQueue from "./PriorityQueue";
 import Graph from "./Graph";
 
-const cave = example.two.split(/\n/).map((n) => n.split("").map((n) => +n));
+const cave = input.split(/\n/).map((n) => n.split("").map((n) => +n));
 
 console.time("Graph Creation");
 
@@ -23,10 +23,6 @@ const surroundingCells = (
 
 const caveGraph = new Graph();
 
-const makePoint = (i, j) => {
-  return [i, j].join(",");
-};
-
 cave.forEach((row, i) => {
   row.forEach((cell, j) => {
     const edges = surroundingCells(cave, i, j);
@@ -34,8 +30,8 @@ cave.forEach((row, i) => {
     edges.forEach((edge) => {
       if (edge[0]) {
         caveGraph.addEdge(
-          makePoint(i, j),
-          makePoint(edge[1], edge[2]),
+          [i, j].join(","),
+          [edge[1], edge[2]].join(","),
           edge[0]
         );
       }
@@ -47,17 +43,10 @@ console.timeEnd("Graph Creation");
 
 console.time("Dijkstra");
 
-// const hFunc = (node: `${number},${number}`, goal: `${number},${number}`) => {
-//   const [i, j] = node.split(",").map((a) => +a);
-//   const [goalI, goalJ] = goal.split(",").map((a) => +a);
-
-//   return Math.sqrt((goalI - i) ** 2 + (goalJ - j) ** 2) * 2;
-// };
-
 const dijkstra = (graph: Graph, source: string) => {
   const dist = []; // best distances to grid
   const prev = [];
-  const prevNodes = new Set();
+  const prevNodes = new Set<string>();
 
   dist[source] = 0; // set the source distance to 0
 
@@ -74,22 +63,20 @@ const dijkstra = (graph: Graph, source: string) => {
   });
 
   while (!pq.isEmpty) {
-    let [u] = pq.dequeue(); // find the best vertex
+    let [v] = pq.dequeue(); // find the best vertex
 
-    if (prevNodes.has(u)) continue;
+    prevNodes.add(v);
 
-    prevNodes.add(u);
-
-    graph.incidenceList[u].forEach((neighbor) => {
+    graph.incidenceList[v].forEach((neighbor) => {
       // for each neighbor of the best vertex
-      const [v, vDist] = neighbor; // neighbor value and distance from the best vertex
+      const [n, nDist] = neighbor; // neighbor value and distance from the best vertex
 
-      let alt = dist[u] + vDist;
-      if (alt < dist[v] && dist[u] !== Infinity) {
+      let alt = dist[v] + nDist; // get the new distance from the start
+      if (alt < dist[n] && dist[v] !== Infinity && !prevNodes.has(n)) {
         // check if the new distance is less than the current best distance to the neighbor value
-        dist[v] = alt; // set the best distance to the new distance
-        prev[v] = u;
-        pq.enqueue(v, alt); // set the neighbor value distance to the new distance in the graph
+        dist[n] = alt; // set the best distance to the new distance
+        prev[n] = v;
+        pq.enqueue(n, alt); // set the neighbor value distance to the new distance in the graph
       }
     });
   }
@@ -99,7 +86,7 @@ const dijkstra = (graph: Graph, source: string) => {
 
 const [dist, prev] = dijkstra(caveGraph, "0,0");
 
-const risk = dist[makePoint(cave.length - 1, cave[0].length - 1)];
+const risk = dist[[cave.length - 1, cave[0].length - 1].join(",")];
 
 console.timeEnd("Dijkstra");
 

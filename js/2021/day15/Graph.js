@@ -32,7 +32,6 @@ class Graph {
             this.addVertex(vertex1);
             this.addVertex(vertex2);
             __classPrivateFieldGet(this, _Graph_incidenceList, "f").get(vertex1).set(vertex2, weight);
-            __classPrivateFieldGet(this, _Graph_incidenceList, "f").get(vertex2).set(vertex1, weight);
         }
     }
 }

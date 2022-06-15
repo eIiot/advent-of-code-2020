@@ -29,7 +29,6 @@ export default class Graph {
       this.addVertex(vertex2);
 
       this.#incidenceList.get(vertex1).set(vertex2, weight);
-      this.#incidenceList.get(vertex2).set(vertex1, weight);
     }
   }
 }
