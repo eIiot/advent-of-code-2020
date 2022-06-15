@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es2017",
+    "module": "CommonJS",
     "sourceMap": true,
-    "resolveJsonModule": true,
-    "typeRoots": [
-      "/Users/eliot/.nvm/versions/node/v16.9.1/lib/node_modules/@types"
-    ],
     "outDir": "js",
     "rootDir": "./"
   }

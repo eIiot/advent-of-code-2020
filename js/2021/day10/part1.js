@@ -1,27 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
 input = input.replace(/\r/g, "");
 var lines = input.split(/\n/);
-lines = lines.map(function (line) { return line.split(""); });
+lines = lines.map(line => line.split(""));
 // assign a number value to each character - (7), [2], {3}, <5>
-var opening = ["(", "[", "{", "<"];
-var closing = [")", "]", "}", ">"];
-var invalidChars = [];
-for (var i = 0; i < lines.length; i++) {
-    var line = lines[i];
-    var chars = [];
-    console.log("Reading line ".concat(i + 1));
+const opening = ["(", "[", "{", "<"];
+const closing = [")", "]", "}", ">"];
+const invalidChars = [];
+for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const chars = [];
+    console.log(`Reading line ${i + 1}`);
     var isValid = true;
-    for (var j = 0; j < line.length; j++) {
-        var char = line[j];
+    for (let j = 0; j < line.length; j++) {
+        const char = line[j];
         if (opening.includes(char)) {
             chars.push(char);
         }
         else if (closing.includes(char)) {
             if (closing[opening.indexOf(chars[chars.length - 1])] != char) {
-                console.log("Line ".concat(i + 1, " is invalid: Expected ").concat(closing[opening.indexOf(chars[chars.length - 1])], ", but found ").concat(char, " at position ").concat(j + 1));
+                console.log(`Line ${i + 1} is invalid: Expected ${closing[opening.indexOf(chars[chars.length - 1])]}, but found ${char} at position ${j + 1}`);
                 invalidChars.push(char);
                 var isValid = false;
                 break;
@@ -40,13 +40,13 @@ for (var i = 0; i < lines.length; i++) {
     }
     ;
     if (isValid) {
-        console.log("Line ".concat(i + 1, " is valid"));
+        console.log(`Line ${i + 1} is valid`);
     }
 }
 ;
 // check final score 
 var score = 0;
-invalidChars.forEach(function (char) {
+invalidChars.forEach(char => {
     if (char == ")") {
         score += 3;
     }
@@ -61,6 +61,6 @@ invalidChars.forEach(function (char) {
     }
     ;
 });
-console.log("Score: ".concat(score));
+console.log(`Score: ${score}`);
 debugger;
 //# sourceMappingURL=part1.js.map

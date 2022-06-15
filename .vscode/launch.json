@@ -5,14 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
       "program": "${file}",
-      "cwd": "${fileDirname}"
+      "preLaunchTask": "tsc: build - tsconfig.json"
+      // "outFiles": ["${workspaceFolder}/js/${relativeFile}.js"]
     }
   ]
 }

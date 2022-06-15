@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
 input = input.replace(/\r/g, "");
-var coordinates = input.split(/\n\n/)[0].split(/\n/).map(function (c) { return c.split(',').map(function (n) { return parseInt(n); }); });
-var instructions = input.split(/\n\n/)[1].split(/\n/).map(function (n) { return n.replace('fold along ', '').split('='); });
+const coordinates = input.split(/\n\n/)[0].split(/\n/).map(c => c.split(',').map(n => parseInt(n)));
+const instructions = input.split(/\n\n/)[1].split(/\n/).map(n => n.replace('fold along ', '').split('='));
 function visualize(coordinates) {
     // VISUALIZE FOR DEBUGGING //
     // find max number for each coordinate
-    var coordinateLists = coordinates[0].map(function (_, colIndex) { return coordinates.map(function (row) { return row[colIndex]; }); });
+    const coordinateLists = coordinates[0].map((_, colIndex) => coordinates.map(row => row[colIndex]));
     var maxX = coordinateLists[0].reduce(function (a, b) {
         return Math.max(a, b);
     }, 0);
@@ -16,9 +16,9 @@ function visualize(coordinates) {
         return Math.max(a, b);
     }, 0);
     // create new array with dimensions maxX,maxY
-    var paper = new Array(++maxY).fill('.').map(function (n) { return new Array(maxX + 1).fill('.'); });
+    const paper = new Array(++maxY).fill('.').map(n => new Array(maxX + 1).fill('.'));
     // fill appropriate cells with #
-    coordinates.forEach(function (coord) {
+    coordinates.forEach(coord => {
         paper[coord[1]][coord[0]] = '#';
     });
     return paper;
@@ -26,12 +26,12 @@ function visualize(coordinates) {
 ;
 var folds = 0;
 // for each instruction, flip value without visualising by finding difference
-instructions.forEach(function (instruction) {
-    var axis = instruction[0];
-    var num = instruction[1];
+instructions.forEach(instruction => {
+    const axis = instruction[0];
+    const num = instruction[1];
     folds++;
-    for (var i = 0; i < coordinates.length; i++) {
-        var coord = coordinates[i];
+    for (let i = 0; i < coordinates.length; i++) {
+        const coord = coordinates[i];
         // move the coordinate using maths!
         if (axis == 'x') {
             if (coord[0] > num) {
@@ -53,7 +53,7 @@ instructions.forEach(function (instruction) {
         var key = t.join('-');
         return this[key] ? false : (this[key] = true);
     }, Object.create(null));
-    console.log("Unique Coordinates after ".concat(folds, " folds: ").concat(uniqCoordinates.length));
+    console.log(`Unique Coordinates after ${folds} folds: ${uniqCoordinates.length}`);
 });
 debugger;
 //# sourceMappingURL=part1.js.map

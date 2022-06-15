@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
 input = input.replace(/\r/g, "");
-var crabs = input.split(/,/);
-crabs.map(function (v) { return parseInt(v); });
+const crabs = input.split(/,/);
+crabs.map(v => parseInt(v));
 console.log(crabs);
 // this is a bad way to do this
 var maxCrabPos = Math.max.apply(null, crabs);
 var possiblePositions = [];
-for (var i = 0; i < maxCrabPos; i++) {
+for (let i = 0; i < maxCrabPos; i++) {
     // loop through array and check fuel values
     var totalFuelValue = 0;
-    for (var j = 0; j < crabs.length; j++) {
-        var crab = crabs[j];
+    for (let j = 0; j < crabs.length; j++) {
+        const crab = crabs[j];
         var distance = Math.abs(i - crab);
         totalFuelValue += (distance * (distance + 1)) / 2; // triangle numbers!
     }

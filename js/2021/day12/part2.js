@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
 input = input.replace(/\r/g, "");
 var map = input.split(/\n/);
-map = map.map(function (n) { return n.split('-'); });
+map = map.map(n => n.split('-'));
 // create an array with all points on map, with the connections
-var mapObject = {};
+const mapObject = {};
 // create DB with objects and cooresponding children
-map.forEach(function (item) {
+map.forEach(item => {
     var start = item[0];
     var end = item[1];
     mapObject[start] = mapObject[start] || [];
@@ -19,10 +19,10 @@ map.forEach(function (item) {
 // count number of times value appears in array
 function getOccurrence(array, value) {
     var count = 0;
-    array.forEach(function (v) { return (v === value && count++); });
+    array.forEach((v) => (v === value && count++));
     return count;
 }
-var paths = [];
+const paths = [];
 // function that visits every child, if that child hasn't been visited before
 function findPath(cave, oldAlreadySearched, doubleSmallCave, mapObject, foundPaths) {
     var alreadySearched = JSON.parse(JSON.stringify(oldAlreadySearched));
@@ -46,13 +46,13 @@ function findPath(cave, oldAlreadySearched, doubleSmallCave, mapObject, foundPat
         doubleSmallCave = cave;
     }
     ;
-    mapObject[cave].forEach(function (child) {
+    mapObject[cave].forEach(child => {
         findPath(child, alreadySearched, doubleSmallCave, mapObject, foundPaths);
     });
 }
 ;
 // start search at start
-mapObject['start'].forEach(function (child) {
+mapObject['start'].forEach(child => {
     findPath(child, ['start'], null, mapObject, paths);
 });
 console.log(paths);

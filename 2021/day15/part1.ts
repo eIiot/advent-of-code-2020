@@ -1,76 +1,108 @@
-const fs = require('fs');
+import * as fs from "fs";
+import input from "./input";
+import * as example from "./example";
+import PriorityQueue from "./PriorityQueue";
+import Graph from "./Graph";
 
-var input = fs.readFileSync('./input.txt','utf-8');
-input = input.replace(/\r/g, "");
+const cave = example.two.split(/\n/).map((n) => n.split("").map((n) => +n));
 
-const cave = input.split(/\n/).map(n => n.split('').map (n => parseInt(n)));
+console.time("Graph Creation");
 
-// stolen from the octopuses vv
-
-function getSurroundingCells(x,y,array,previousCells) {
-  const modifiers = [
-    // [-1,-1],
-    [-1,0],
-    // [-1,1],
-    [0,-1],
-    [0,1],
-    // [1,-1],
-    [1,0],
-    // [1,1],        
+const surroundingCells = (
+  array: Array<Array<number>>,
+  i: number,
+  j: number
+) => {
+  return [
+    [array[i - 1] ? array[i - 1][j] : undefined, i - 1, j],
+    [array[i + 1] ? array[i + 1][j] : undefined, i + 1, j],
+    [array[i][j - 1], i, j - 1],
+    [array[i][j + 1], i, j + 1],
   ];
+};
 
-  const cells = [];
+const caveGraph = new Graph();
 
-  // only return if cell exists
+const makePoint = (i, j) => {
+  return [i, j].join(",");
+};
 
-  modifiers.forEach(modifier => {
-    const xmod = modifier[0];
-    const ymod = modifier[1];
-    // get surrounding cells, push ones that are not null
-    if (!(!array[y+ymod] || !array[y+ymod][x+xmod] || previousCells.includes(`${x+xmod},${y+ymod}`))) {
-      cells.push([x+xmod,y+ymod])
+cave.forEach((row, i) => {
+  row.forEach((cell, j) => {
+    const edges = surroundingCells(cave, i, j);
+
+    edges.forEach((edge) => {
+      if (edge[0]) {
+        caveGraph.addEdge(
+          makePoint(i, j),
+          makePoint(edge[1], edge[2]),
+          edge[0]
+        );
+      }
+    });
+  });
+});
+
+console.timeEnd("Graph Creation");
+
+console.time("Dijkstra");
+
+// const hFunc = (node: `${number},${number}`, goal: `${number},${number}`) => {
+//   const [i, j] = node.split(",").map((a) => +a);
+//   const [goalI, goalJ] = goal.split(",").map((a) => +a);
+
+//   return Math.sqrt((goalI - i) ** 2 + (goalJ - j) ** 2) * 2;
+// };
+
+const dijkstra = (graph: Graph, source: string) => {
+  const dist = []; // best distances to grid
+  const prev = [];
+  const prevNodes = new Set();
+
+  dist[source] = 0; // set the source distance to 0
+
+  const pq = new PriorityQueue(); // create a min priority queue
+
+  graph.vertices.forEach((v) => {
+    // initialize priority queue with Infinity as the distance from the source for every vertex
+    if (v !== source) {
+      dist[v] = Infinity;
+      prev[v] = undefined;
     }
+
+    pq.enqueue(v, dist[v]);
   });
 
-  return cells;
-};
+  while (!pq.isEmpty) {
+    let [u] = pq.dequeue(); // find the best vertex
 
-function main() {
+    if (prevNodes.has(u)) continue;
 
-  var lowestSum = Infinity;
+    prevNodes.add(u);
 
-  function pathFind(x,y,array,oldSum,oldPreviousCells) {
-    var sum = oldSum;
+    graph.incidenceList[u].forEach((neighbor) => {
+      // for each neighbor of the best vertex
+      const [v, vDist] = neighbor; // neighbor value and distance from the best vertex
 
-    const previousCells = JSON.parse(JSON.stringify(oldPreviousCells));
-
-    // check if sum is higher than lowest sum 
-    if (sum > lowestSum) return;
-
-    if (x == (array[0].length -1) && y == (array.length -1)) {
-      lowestSum = sum;
-      return;
-    };
-
-    sum += array[y][x];
-
-    previousCells.push(`${x},${y}`);
-
-    const surrounding = getSurroundingCells(x,y,array,previousCells);
-
-    surrounding.forEach(cell => {
-      pathFind(cell[0],cell[1],array,sum,previousCells);
+      let alt = dist[u] + vDist;
+      if (alt < dist[v] && dist[u] !== Infinity) {
+        // check if the new distance is less than the current best distance to the neighbor value
+        dist[v] = alt; // set the best distance to the new distance
+        prev[v] = u;
+        pq.enqueue(v, alt); // set the neighbor value distance to the new distance in the graph
+      }
     });
+  }
 
-    // console.log(lowestSum);
-  };
-
-  pathFind(0,0,cave,0,[]);
-  
-  console.log(lowestSum);
+  return [dist, prev];
 };
 
-main();
+const [dist, prev] = dijkstra(caveGraph, "0,0");
 
-export {}
+const risk = dist[makePoint(cave.length - 1, cave[0].length - 1)];
+
+console.timeEnd("Dijkstra");
+
+console.log("Lowest Total Risk:", risk);
+
 debugger;

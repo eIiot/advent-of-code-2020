@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
 input = input.replace(/\r/g, "");
 var template = input.split(/\n\n/)[0];
-var rulesArr = input.split(/\n\n/)[1].split(/\n/).map(function (n) { return n.split(' -> '); });
+const rulesArr = input.split(/\n\n/)[1].split(/\n/).map(n => n.split(' -> '));
 function arr2obj(arr) {
     // Create an empty object
-    var obj = {};
-    arr.forEach(function (v) {
+    let obj = {};
+    arr.forEach((v) => {
         // Extract the key and the value
-        var key = v[0];
-        var value = v[1];
+        let key = v[0];
+        let value = v[1];
         // Add the key and value to
         // the object
         obj[key] = value;
@@ -20,33 +20,33 @@ function arr2obj(arr) {
     return obj;
 }
 ;
-var rules = arr2obj(rulesArr);
+const rules = arr2obj(rulesArr);
 // generate pair -> pair1 pair2
-var pairRules = {};
-for (var pair in rules) {
+const pairRules = {};
+for (const pair in rules) {
     if (Object.prototype.hasOwnProperty.call(rules, pair)) {
-        var rule = rules[pair];
-        var pairArray = pair.split('');
+        const rule = rules[pair];
+        const pairArray = pair.split('');
         pairRules[pair] = [pairArray[0] + rule, rule + pairArray[1]];
     }
 }
-var pairCounts = {};
-for (var j = 1; j < template.length; j++) {
-    var letter = template[j];
-    var previousLetter = template[j - 1];
-    var pair = previousLetter + letter;
+const pairCounts = {};
+for (let j = 1; j < template.length; j++) {
+    const letter = template[j];
+    const previousLetter = template[j - 1];
+    const pair = previousLetter + letter;
     pairCounts[pair] = pairCounts[pair] || 0;
     pairCounts[pair]++;
 }
 ;
-for (var i = 0; i < 40; i++) {
+for (let i = 0; i < 40; i++) {
     var oldPairCounts = JSON.parse(JSON.stringify(pairCounts));
-    for (var pair in pairCounts) {
+    for (const pair in pairCounts) {
         if (Object.prototype.hasOwnProperty.call(pairCounts, pair)) {
             var count = oldPairCounts[pair];
             // add the appropriate pairs to the count, and remove the old pair
-            for (var i_1 = 0; i_1 < pairRules[pair].length; i_1++) {
-                var rulePair = pairRules[pair][i_1];
+            for (let i = 0; i < pairRules[pair].length; i++) {
+                const rulePair = pairRules[pair][i];
                 pairCounts[rulePair] = pairCounts[rulePair] || 0;
                 pairCounts[rulePair] += count;
             }
@@ -61,12 +61,12 @@ for (var i = 0; i < 40; i++) {
 }
 ;
 // find number of each letter
-var charCounts = {};
-for (var pair in pairCounts) {
+const charCounts = {};
+for (const pair in pairCounts) {
     if (Object.prototype.hasOwnProperty.call(pairCounts, pair)) {
-        var count_1 = pairCounts[pair];
+        const count = pairCounts[pair];
         charCounts[pair.charAt(0)] = charCounts[pair.charAt(0)] || 0;
-        charCounts[pair.charAt(0)] += count_1;
+        charCounts[pair.charAt(0)] += count;
     }
     ;
 }
@@ -75,9 +75,9 @@ for (var pair in pairCounts) {
 charCounts[template.charAt(template.length - 1)]++;
 var smallest = Infinity;
 var largest = 0;
-for (var letter in charCounts) {
+for (const letter in charCounts) {
     if (Object.prototype.hasOwnProperty.call(charCounts, letter)) {
-        var num = charCounts[letter];
+        const num = charCounts[letter];
         if (num > largest)
             largest = num;
         if (num < smallest)
@@ -86,6 +86,6 @@ for (var letter in charCounts) {
 }
 ;
 var answer = largest - smallest;
-console.log("Answer: ".concat(answer));
+console.log(`Answer: ${answer}`);
 debugger;
 //# sourceMappingURL=part2.js.map

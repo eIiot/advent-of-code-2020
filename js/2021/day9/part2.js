@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
 input = input.replace(/\r/g, "");
 var heightmap = input.split(/\n/);
-heightmap = heightmap.map(function (line) { return line.split("").map(function (v) { return Number(v); }); });
+heightmap = heightmap.map(line => line.split("").map(v => Number(v)));
 function getRelativeCell(x, y, xmod, ymod, array) {
     if (array[y + ymod] == undefined || array[y + ymod][x + xmod] == undefined) {
         return [9, [x + xmod, y + ymod]];
@@ -15,7 +15,7 @@ function getRelativeCell(x, y, xmod, ymod, array) {
 }
 ;
 function getSurroundingCells(x, y, array) {
-    var cells = [];
+    const cells = [];
     cells.push(getRelativeCell(x, y, 0, -1, array));
     cells.push(getRelativeCell(x, y, 0, 1, array));
     cells.push(getRelativeCell(x, y, -1, 0, array));
@@ -30,23 +30,23 @@ function findBasinCells(x, y, num, array, basinArray) {
     else {
         basinArray.push([num, [x, y]]);
         array[y][x] = 9;
-        var surroundingCells = getSurroundingCells(x, y, array);
-        for (var i = 0; i < surroundingCells.length; i++) {
+        const surroundingCells = getSurroundingCells(x, y, array);
+        for (let i = 0; i < surroundingCells.length; i++) {
             // get updated cells to prevent checking the same cell twice
-            var updatedCells = getSurroundingCells(x, y, array);
-            var cell = updatedCells[i];
+            const updatedCells = getSurroundingCells(x, y, array);
+            const cell = updatedCells[i];
             findBasinCells(cell[1][0], cell[1][1], cell[0], array, basinArray);
         }
     }
 }
 ;
-var basins = [];
-for (var i = 0; i < heightmap.length; i++) {
-    var row = heightmap[i];
-    for (var j = 0; j < row.length; j++) {
-        var cell = row[j];
+const basins = [];
+for (let i = 0; i < heightmap.length; i++) {
+    const row = heightmap[i];
+    for (let j = 0; j < row.length; j++) {
+        const cell = row[j];
         if (cell != 9) {
-            var basinArray = [];
+            const basinArray = [];
             findBasinCells(j, i, heightmap[i][j], heightmap, basinArray);
             basins.push(basinArray);
         }
@@ -55,8 +55,8 @@ for (var i = 0; i < heightmap.length; i++) {
     ;
 }
 ;
-var basinSizes = [];
-basins.forEach(function (basin) {
+const basinSizes = [];
+basins.forEach(basin => {
     basinSizes.push(basin.length);
 });
 // sort array from largest to smallest

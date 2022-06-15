@@ -1,0 +1,35 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.four = exports.three = exports.two = exports.one = void 0;
+exports.one = `9163751742
+1381373672
+2136511328
+3694931569
+7463417111
+1319128137
+1359912421
+3125421639
+1293138521
+2311944581`;
+exports.two = `1999999999
+1999999999
+1999999999
+1111199999
+9999191111
+9999111991
+9999999991
+9999991111
+9999991999
+9999991111
+`;
+exports.three = `11119
+99919
+99119
+99199
+99111`;
+exports.four = `11111
+99911
+11111
+11999
+11111`;
+//# sourceMappingURL=example.js.map

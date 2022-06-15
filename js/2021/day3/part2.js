@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
+const fs = require('fs');
 var input = fs.readFileSync('./input.txt', 'utf-8');
-var report = input.split(/\r?\n/);
+const report = input.split(/\r?\n/);
 function mostFrequentBit(arr, bitPos) {
     var totalBits = 0;
-    for (var i = 0; i < arr.length; i++) {
-        var bit = arr[i][bitPos];
+    for (let i = 0; i < arr.length; i++) {
+        const bit = arr[i][bitPos];
         totalBits += parseInt(bit);
     }
     if (totalBits < (arr.length / 2)) {
@@ -20,17 +20,17 @@ function mostFrequentBit(arr, bitPos) {
 ;
 var o2Report = report;
 // loop through the number of bits
-for (var i = 0; i < report[0].split('').length; i++) {
+for (let i = 0; i < report[0].split('').length; i++) {
     if (o2Report.length == 1) {
         continue;
     }
     ;
     var mfBit = mostFrequentBit(o2Report, i);
-    var newO2Report = [];
-    for (var j = 0; j < o2Report.length; j++) {
-        var binary = o2Report[j];
+    const newO2Report = [];
+    for (let j = 0; j < o2Report.length; j++) {
+        const binary = o2Report[j];
         if (binary.split('')[i] == mfBit) {
-            console.log("Keeping ".concat(j, " (value ").concat(binary, ") because bit ").concat(i, " is ").concat(mfBit));
+            console.log(`Keeping ${j} (value ${binary}) because bit ${i} is ${mfBit}`);
             newO2Report.push(binary);
         }
         ;
@@ -43,17 +43,17 @@ console.log(o2Report);
 var co2Report = report;
 console.log(co2Report.toString());
 // loop through the number of bits
-for (var i = 0; i < report[0].split('').length; i++) {
+for (let i = 0; i < report[0].split('').length; i++) {
     if (co2Report.length == 1) {
         continue;
     }
     ;
     var mfBit = mostFrequentBit(co2Report, i);
-    var newCO2Report = [];
-    for (var j = 0; j < co2Report.length; j++) {
-        var binary = co2Report[j];
+    const newCO2Report = [];
+    for (let j = 0; j < co2Report.length; j++) {
+        const binary = co2Report[j];
         if (binary.split('')[i] != mfBit) {
-            console.log("Keeping ".concat(j, " (value ").concat(binary, ") because bit ").concat(i, " is ").concat(mfBit));
+            console.log(`Keeping ${j} (value ${binary}) because bit ${i} is ${mfBit}`);
             newCO2Report.push(binary);
         }
         ;
@@ -64,6 +64,6 @@ for (var i = 0; i < report[0].split('').length; i++) {
 ;
 console.log(co2Report);
 var lifeSupportRating = parseInt(o2Report[0], 2) * parseInt(co2Report[0], 2);
-console.log({ lifeSupportRating: lifeSupportRating });
+console.log({ lifeSupportRating });
 debugger;
 //# sourceMappingURL=part2.js.map
