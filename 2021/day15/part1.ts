@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import input from "./input";
 import * as example from "./example";
-import PriorityQueue from "./PriorityQueue";
-import Graph from "./Graph";
+import PriorityQueue from "./tools/PriorityQueue";
+import Graph from "./tools/Graph";
 
 const cave = input.split(/\n/).map((n) => n.split("").map((n) => +n));
 
@@ -93,3 +93,9 @@ console.timeEnd("Dijkstra");
 console.log("Lowest Total Risk:", risk);
 
 debugger;
+
+// Graph Creation: 19.301025390625 ms
+// Graph Creation: 19.383ms
+// Dijkstra: 27206.989990234375 ms
+// Dijkstra: 27.206s
+// Lowest Total Risk: 604

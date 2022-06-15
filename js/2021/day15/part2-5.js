@@ -1,9 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const input_1 = require("./input");
-const PriorityQueue_1 = require("./tools/PriorityQueue");
-const Graph_1 = require("./tools/Graph");
-const cave = input_1.default.split(/\n/).map((n) => n.split("").map((n) => +n));
+const PriorityQueue_1 = require("./PriorityQueue");
+const Graph_1 = require("./Graph");
+const smallCave = input_1.default.split(/\n/).map((n) => n.split("").map((n) => +n));
+const fiveWide = [];
+const rollOver = (v, increment) => {
+    return v + increment > 9 ? (v + increment) % 9 : v + increment;
+};
+// this is a really dumb way to implement this, but I'm lazy
+smallCave.forEach((line) => {
+    const newLine = [
+        ...line.map((v) => rollOver(v, 0)),
+        ...line.map((v) => rollOver(v, 1)),
+        ...line.map((v) => rollOver(v, 2)),
+        ...line.map((v) => rollOver(v, 3)),
+        ...line.map((v) => rollOver(v, 4)),
+    ];
+    fiveWide.push(newLine);
+});
+const cave = [
+    ...fiveWide.map((line) => line.map((v) => rollOver(v, 0))),
+    ...fiveWide.map((line) => line.map((v) => rollOver(v, 1))),
+    ...fiveWide.map((line) => line.map((v) => rollOver(v, 2))),
+    ...fiveWide.map((line) => line.map((v) => rollOver(v, 3))),
+    ...fiveWide.map((line) => line.map((v) => rollOver(v, 4))),
+];
 console.time("Graph Creation");
 const surroundingCells = (array, i, j) => {
     return [
@@ -40,10 +62,12 @@ const dijkstra = (graph, source) => {
         }
         pq.enqueue(v, dist[v]);
     });
+    console.log("hello");
+    const fixedIncList = JSON.parse(JSON.stringify(graph.incidenceList)); // need to implement this in my PriorityQueueClass
     while (!pq.isEmpty) {
         let [v] = pq.dequeue(); // find the best vertex
         prevNodes.add(v);
-        graph.incidenceList[v].forEach((neighbor) => {
+        fixedIncList[v].forEach((neighbor) => {
             // for each neighbor of the best vertex
             const [n, nDist] = neighbor; // neighbor value and distance from the best vertex
             let alt = dist[v] + nDist; // get the new distance from the start
@@ -62,9 +86,4 @@ const risk = dist[[cave.length - 1, cave[0].length - 1].join(",")];
 console.timeEnd("Dijkstra");
 console.log("Lowest Total Risk:", risk);
 debugger;
-// Graph Creation: 19.301025390625 ms
-// Graph Creation: 19.383ms
-// Dijkstra: 27206.989990234375 ms
-// Dijkstra: 27.206s
-// Lowest Total Risk: 604
-//# sourceMappingURL=part1.js.map
+//# sourceMappingURL=part2-5.js.map
