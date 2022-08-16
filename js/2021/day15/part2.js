@@ -74,4 +74,9 @@ const risk = aStar(caveGraph, "0,0", [cave.length - 1, cave[0].length - 1].join(
 console.timeEnd("A*");
 console.log("Lowest Total Risk:", risk);
 debugger;
+// Graph Creation: 455.845947265625 ms
+// Graph Creation: 455.937ms
+// A*: 1166.2109375 ms
+// A*: 1.166s
+// Lowest Total Risk: 2907
 //# sourceMappingURL=part2.js.map
