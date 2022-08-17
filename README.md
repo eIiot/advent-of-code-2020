@@ -16,7 +16,7 @@ Because it's fun :)
 
 Because AOC is a great way to learn skills in a new language
 
-## Why use `debugger;` at the end of every file?
+## Why use `debugger;` at the end of ~~every~~ some files?
 
 It allows VSCode to save the variables in the debugger instead of exiting.
 
