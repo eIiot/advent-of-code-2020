@@ -4,9 +4,7 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "js",
-    "rootDir": "./",
+    // "bun-types" is the important part
     "types": ["bun-types"]
   }
 }
