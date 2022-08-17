@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "CommonJS",
+    "lib": ["ESNext"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "js",
-    "rootDir": "./"
+    "rootDir": "./",
+    "types": ["bun-types"]
   }
 }
