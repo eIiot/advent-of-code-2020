@@ -8,8 +8,6 @@ const hex2bin = (data: string) =>
     .map((i) => parseInt(i, 16).toString(2).padStart(4, "0"))
     .join("");
 
-let sum = 0;
-
 class BitStack {
   stack: string[];
 
@@ -64,8 +62,6 @@ const parseLiteral = async (stack: BitStack) => {
 
   let spTypeId = parseInt(stack.grab(3).join(""), 2);
 
-  sum += spVersion;
-
   let endFound = false;
 
   let bitNumber = "";
@@ -82,13 +78,15 @@ const parseLiteral = async (stack: BitStack) => {
     }
   }
 
-  return;
+  return parseInt(bitNumber, 2);
 };
 
-const parseOperator = async (stack: BitStack) => {
+const parseOperator = async (stack: BitStack): Promise<number> => {
   let version = parseInt(stack.grab(3).join(""), 2);
 
-  sum += version;
+  let value: number;
+
+  let subPacketValues: number[] = [];
 
   let typeId = parseInt(stack.grab(3).join(""), 2); // we don't care about typeId
 
@@ -107,14 +105,15 @@ const parseOperator = async (stack: BitStack) => {
       let currentStackLength = stack.length;
 
       if (spTypeId === 4) {
-        await parseLiteral(stack);
+        let val = await parseLiteral(stack);
+        subPacketValues.push(val);
       } else {
-        await parseOperator(stack);
+        let val = await parseOperator(stack);
+        subPacketValues.push(val);
       }
 
       lengthParsed += currentStackLength - stack.length;
     }
-    return;
   } else {
     let numberOfSubPackets = parseInt(stack.grab(11).join(""), 2);
 
@@ -126,15 +125,36 @@ const parseOperator = async (stack: BitStack) => {
       let spTypeId = parseInt(spHeader.splice(3, 3).join(""), 2);
 
       if (spTypeId === 4) {
-        await parseLiteral(stack);
+        let val = await parseLiteral(stack);
+        subPacketValues.push(val);
       } else {
-        await parseOperator(stack);
+        let val = await parseOperator(stack);
+        subPacketValues.push(val);
       }
 
       parsedSubPackets++;
     }
-    return;
   }
+
+  // do opreations on subpackets
+
+  if (typeId === 0) {
+    value = subPacketValues.reduce((a, b) => a + b);
+  } else if (typeId === 1) {
+    value = subPacketValues.reduce((a, b) => a * b);
+  } else if (typeId === 2) {
+    value = Math.min(...subPacketValues);
+  } else if (typeId === 3) {
+    value = Math.max(...subPacketValues);
+  } else if (typeId === 5) {
+    value = subPacketValues[0] > subPacketValues[1] ? 1 : 0;
+  } else if (typeId === 6) {
+    value = subPacketValues[0] < subPacketValues[1] ? 1 : 0;
+  } else if (typeId === 7) {
+    value = subPacketValues[0] === subPacketValues[1] ? 1 : 0;
+  }
+
+  return value;
 };
 
 console.time("Stack Creation");
@@ -145,12 +165,12 @@ console.timeEnd("Stack Creation");
 
 console.time("Parsing");
 
-await parseOperator(stack);
+let value = await parseOperator(stack);
 
 console.timeEnd("Parsing");
 
-console.log("Sum of Version Numbers:", sum);
+console.log("Final Value:", value);
 
-// [16.37ms] Stack Creation
-// [3.12ms] Parsing
-// Sum of Version Numbers: 938
+// [3.41ms] Stack Creation
+// [2.86ms] Parsing
+// Final Value: 1495959086337
