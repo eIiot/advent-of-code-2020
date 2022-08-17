@@ -13,7 +13,5 @@ Sum of Version Numbers: 938
 ### Part 2 Output
 
 ```txt
-[480.31ms] Graph Creation
-[1288.95ms] A*
-Lowest Total Risk: 2907
+/// output here
 ```
