@@ -82,17 +82,10 @@ const parseLiteral = async (stack: BitStack) => {
     }
   }
 
-  // console.log("Literal Value", parseInt(bitNumber, 2));
-
   return;
 };
 
 const parseOperator = async (stack: BitStack) => {
-  if (stack.length === 0) {
-    console.log(sum);
-    throw new Error("No stack length");
-  }
-
   let version = parseInt(stack.grab(3).join(""), 2);
 
   sum += version;
