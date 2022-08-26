@@ -1,9 +1,7 @@
 import { input, examples } from "./input";
-import { writeFileSync } from "fs";
 
 const parseInput = (input: string): [[number, number], [number, number]] => {
-  let input2 = "target area: x=153..199, y=-114..-75";
-  let trimmed = input2.substring(13);
+  let trimmed = input.substring(13);
   let xY = trimmed.split(", ");
   return xY.map((val) =>
     val
@@ -79,7 +77,7 @@ const renderTrajectory = (
 
   renderArray[fixedArrayCoords[1][1] - hist[0][1]][hist[0][0]] = "S";
 
-  return renderArray.map((n) => n.join("")).join("\n");
+  console.log(renderArray.map((n) => n.join("")).join("\n"));
 };
 
 const launchProbe = (initialVelocity: [number, number]) => {
@@ -141,10 +139,10 @@ const launchProbe = (initialVelocity: [number, number]) => {
       // console.log({ targetArea });
       // console.log({ hist });
 
-      writeFileSync(
-        "./out/part1-render.txt",
-        renderTrajectory(hist, targetArea)
-      );
+      // renderTrajectory(hist, targetArea);
+
+      // console.log("hit target");
+      // console.log("at", initialVelocity);
 
       hitTarget = true;
 
@@ -165,13 +163,21 @@ const launchProbe = (initialVelocity: [number, number]) => {
   return hitTarget;
 };
 
+let numberOfOptions = 0;
+
 console.time("launches");
 
-let i = 1;
-let exit = false;
-while (!exit) {
-  exit = launchProbe([i, Math.abs(targetArea[1][0]) - 1]);
-  i++;
+for (let x = 0; x < 1000; x++) {
+  for (let y = -500; y < 500; y++) {
+    // console.log(x, y);
+    let hitTarget = launchProbe([x, y]);
+    if (hitTarget) {
+      numberOfOptions++;
+    }
+  }
+  // console.log(x / 1000);
 }
 
 console.timeEnd("launches");
+
+console.log("Number of options:", numberOfOptions);
