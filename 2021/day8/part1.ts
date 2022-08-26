@@ -1,27 +1,37 @@
-const fs = require('fs');
+import input from "./input";
+import example from "./example";
 
-var input = fs.readFileSync('./input.txt','utf-8');
-input = input.replace(/\r/g, "");
+console.time("parsing");
 
-var notes = input.split(/\n/).map(n => n.split(' | ').map(n => n.split(' ')));
+let notes = input
+  .split(/\n/)
+  .map((n) => n.split(" | ").map((n) => n.split(" ")));
 
-notes.forEach(function (note,index,array) {
+notes.forEach(function (note, index, array) {
   array[index].shift();
 });
 
-notes = notes.flat(Infinity);
+let flatNotes = notes.flat(Infinity);
 
-console.log(notes);
+console.timeEnd("parsing");
 
-var numOfOneFourSevenEight = 0;
+console.time("count");
 
-notes.forEach(element => {
-  if (element.length == 2 || element.length == 4 || element.length == 3 || element.length == 7) {
+let numOfOneFourSevenEight = 0;
+
+flatNotes.forEach((element) => {
+  if (
+    element.length == 2 ||
+    element.length == 4 ||
+    element.length == 3 ||
+    element.length == 7
+  ) {
     numOfOneFourSevenEight++;
   }
 });
 
-console.log(numOfOneFourSevenEight);
+console.timeEnd("count");
 
-export {}
+console.log("digits 1, 4, 7, or 8 appear", numOfOneFourSevenEight, "times");
+
 debugger;
