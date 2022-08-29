@@ -1,5 +1,5 @@
 import input from "./input";
-import example from "./example";
+import { example1, example2 } from "./example";
 
 console.time("parsing");
 
