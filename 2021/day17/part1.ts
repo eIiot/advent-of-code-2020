@@ -1,5 +1,11 @@
+// [25.80ms] launches
+// Highest Y Position: 6441
+// [26.22ms] Total Time
+
 import { input, examples } from "./input";
 import { writeFileSync } from "fs";
+
+console.time("Total Time");
 
 const parseInput = (input: string): [[number, number], [number, number]] => {
   let input2 = "target area: x=153..199, y=-114..-75";
@@ -82,7 +88,7 @@ const renderTrajectory = (
   return renderArray.map((n) => n.join("")).join("\n");
 };
 
-const launchProbe = (initialVelocity: [number, number]) => {
+const launchProbe = (initialVelocity: [number, number]): [boolean, number] => {
   /**
    * [x, y]
    */
@@ -162,16 +168,23 @@ const launchProbe = (initialVelocity: [number, number]) => {
     }
   }
 
-  return hitTarget;
+  return [hitTarget, maxY ?? 0];
 };
 
 console.time("launches");
 
 let i = 1;
 let exit = false;
+let highestYVal;
 while (!exit) {
-  exit = launchProbe([i, Math.abs(targetArea[1][0]) - 1]);
+  let [didExit, maxY] = launchProbe([i, Math.abs(targetArea[1][0]) - 1]);
+  exit = didExit;
+  highestYVal = maxY;
   i++;
 }
 
 console.timeEnd("launches");
+
+console.log("Highest Y Position:", highestYVal);
+
+console.timeEnd("Total Time");

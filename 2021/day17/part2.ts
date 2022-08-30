@@ -1,4 +1,15 @@
+// 0.1%
+// 0.2%
+// ...
+// 99.8%
+// 99.9%
+// [41.04s] launches
+// Number of options: 3186
+// [41.05s] Total Time
+
 import { input, examples } from "./input";
+
+console.time("Total Time");
 
 const parseInput = (input: string): [[number, number], [number, number]] => {
   let trimmed = input.substring(13);
@@ -175,9 +186,12 @@ for (let x = 0; x < 1000; x++) {
       numberOfOptions++;
     }
   }
-  // console.log(x / 1000);
+  console.clear();
+  console.log(x / 10 + "%");
 }
 
 console.timeEnd("launches");
 
 console.log("Number of options:", numberOfOptions);
+
+console.timeEnd("Total Time");

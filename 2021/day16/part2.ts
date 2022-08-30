@@ -1,6 +1,11 @@
-// switched to bun.sh -- compile times may vary
+// [2.73ms] Stack Creation
+// [4.39ms] Parsing
+// Final Value: 1495959086337
+// [8.17ms] Total Time
 
 import { input, examples } from "./input";
+
+console.time("Total Time");
 
 const hex2bin = (data: string) =>
   data
@@ -171,6 +176,4 @@ console.timeEnd("Parsing");
 
 console.log("Final Value:", value);
 
-// [3.41ms] Stack Creation
-// [2.86ms] Parsing
-// Final Value: 1495959086337
+console.timeEnd("Total Time");

@@ -7,15 +7,17 @@ I'm also trying to actually do a good job writing my code, which means applying 
 ### Part 1 Output
 
 ```txt
-[20.14ms] Graph Creation
-[18.58s] Dijkstra
+[15.09ms] Graph Creation
+[20.87s] Dijkstra
 Lowest Total Risk: 604
+[20.89s] Total Time
 ```
 
 ### Part 2 Output
 
 ```txt
-[480.31ms] Graph Creation
-[1288.95ms] A*
+[474.34ms] Graph Creation
+[1294.95ms] A*
 Lowest Total Risk: 2907
+[1.78s] Total Time
 ```

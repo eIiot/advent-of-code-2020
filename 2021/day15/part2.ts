@@ -1,8 +1,15 @@
+// [474.34ms] Graph Creation
+// [1294.95ms] A*
+// Lowest Total Risk: 2907
+// [1.78s] Total Time
+
 import * as fs from "fs";
 import input from "./input";
 import * as example from "./example";
 import PriorityQueue from "./tools/PriorityQueue";
 import Graph from "./tools/Graph";
+
+console.time("Total Time");
 
 const smallCave = input.split(/\n/).map((n) => n.split("").map((n) => +n));
 
@@ -112,10 +119,4 @@ console.timeEnd("A*");
 
 console.log("Lowest Total Risk:", risk);
 
-debugger;
-
-// Graph Creation: 455.845947265625 ms
-// Graph Creation: 455.937ms
-// A*: 1166.2109375 ms
-// A*: 1.166s
-// Lowest Total Risk: 2907
+console.timeEnd("Total Time");

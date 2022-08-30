@@ -1,6 +1,11 @@
-// switched to bun.sh -- compile times may vary
+// [2.39ms] Stack Creation
+// [1.91ms] Parsing
+// Sum of Version Numbers: 938
+// [4.77ms] Total Time
 
 import { input, examples } from "./input";
+
+console.time("Total Time");
 
 const hex2bin = (data: string) =>
   data
@@ -151,6 +156,4 @@ console.timeEnd("Parsing");
 
 console.log("Sum of Version Numbers:", sum);
 
-// [16.37ms] Stack Creation
-// [3.12ms] Parsing
-// Sum of Version Numbers: 938
+console.timeEnd("Total Time");

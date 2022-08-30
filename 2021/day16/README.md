@@ -5,15 +5,17 @@ What an awesome challenge. This one was a lot more difficult to solve (at least 
 ### Part 1 Output
 
 ```txt
-[16.37ms] Stack Creation
-[3.12ms] Parsing
-Sum of Version Numbers: 938
+// [2.39ms] Stack Creation
+// [1.91ms] Parsing
+// Sum of Version Numbers: 938
+// [4.77ms] Total Time
 ```
 
 ### Part 2 Output
 
 ```txt
-[3.41ms] Stack Creation
-[2.86ms] Parsing
+[2.73ms] Stack Creation
+[4.39ms] Parsing
 Final Value: 1495959086337
+[8.17ms] Total Time
 ```

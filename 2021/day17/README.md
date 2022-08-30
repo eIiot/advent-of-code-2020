@@ -7,12 +7,20 @@ I also decided to brute-foce part 2. I can probably optimize it more just by red
 ### Part 1 Output
 
 ```txt
-[23.62ms] launches
+[25.80ms] launches
+Highest Y Position: 6441
+[26.22ms] Total Time
 ```
 
 ### Part 2 Output
 
 ```txt
-[40.83s] launches
+0.1%
+0.2%
+...
+99.8%
+99.9%
+[41.04s] launches
 Number of options: 3186
+[41.05s] Total Time
 ```

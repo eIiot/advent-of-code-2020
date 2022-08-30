@@ -1,8 +1,15 @@
+// [15.09ms] Graph Creation
+// [20.87s] Dijkstra
+// Lowest Total Risk: 604
+// [20.89s] Total Time
+
 import * as fs from "fs";
 import input from "./input";
 import * as example from "./example";
 import PriorityQueue from "./tools/PriorityQueue";
 import Graph from "./tools/Graph";
+
+console.time("Total Time");
 
 const cave = input.split(/\n/).map((n) => n.split("").map((n) => +n));
 
@@ -92,10 +99,4 @@ console.timeEnd("Dijkstra");
 
 console.log("Lowest Total Risk:", risk);
 
-debugger;
-
-// Graph Creation: 19.301025390625 ms
-// Graph Creation: 19.383ms
-// Dijkstra: 27206.989990234375 ms
-// Dijkstra: 27.206s
-// Lowest Total Risk: 604
+console.timeEnd("Total Time");
