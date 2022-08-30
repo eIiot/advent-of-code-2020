@@ -1,5 +1,12 @@
+// [2.04ms] parsing
+// [0.56ms] count
+// Digits 1, 4, 7, or 8 appear 412 times
+// [2.85ms] Total Time
+
 import input from "./input";
 import { example1, example2 } from "./example";
+
+console.time("Total Time");
 
 console.time("parsing");
 
@@ -32,6 +39,6 @@ flatNotes.forEach((element) => {
 
 console.timeEnd("count");
 
-console.log("digits 1, 4, 7, or 8 appear", numOfOneFourSevenEight, "times");
+console.log("Digits 1, 4, 7, or 8 appear", numOfOneFourSevenEight, "times");
 
-debugger;
+console.timeEnd("Total Time");
