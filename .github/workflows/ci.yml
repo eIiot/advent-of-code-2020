@@ -26,4 +26,4 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: cargo clippy
-              run: cs ./rust && cargo clippy -- -D warnings
+              run: cd ./rust && cargo clippy -- -D warnings
