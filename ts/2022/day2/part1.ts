@@ -1,5 +1,4 @@
 import { input, examples } from "./input";
-import * as AOC from "../../helper";
 
 const lines = input.split("\n");
 
