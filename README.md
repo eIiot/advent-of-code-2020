@@ -6,21 +6,21 @@ Advent of Code is an annual set of Christmas-themed computer programming challen
 
 ## Can I use this?
 
-Yes, although it's badly written
+Yes, although most of it is badly written. AoC is a learning experience.
 
 ## Why?
 
-Because it's fun :)
+Because it's fun, and because it's a great way to learn a new language (like rust).
 
 ## Why so many languages?
 
 Because AOC is a great way to learn skills in a new language
 
-## Why use `debugger;` at the end of ~~every~~ some files?
-
-It allows VSCode to save the variables in the debugger instead of exiting.
-
 ## Rules (for myself)
 
 - No Copilot
-- No npm packages
+- No npm packages (for ts)
+
+## Where is the Rust Generator From?
+
+It's from [this](https://github.com/fspoettel/advent-of-code-rust) amazing template, created by @fspoettel.
