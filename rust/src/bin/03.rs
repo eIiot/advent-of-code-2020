@@ -1,46 +1,21 @@
 use advent_of_code::helpers::grouped_lines;
 
-static ASCII_LOWER: [char; 26] = [
-        'a', 'b', 'c', 'd', 'e', 
-        'f', 'g', 'h', 'i', 'j', 
-        'k', 'l', 'm', 'n', 'o',
-        'p', 'q', 'r', 's', 't', 
-        'u', 'v', 'w', 'x', 'y', 
-        'z',
-    ];
-
 fn assess_char_value(character: char) -> u32 {
-    // determine if the character is upper or lowercase
-
-    let is_uppercase = character.is_uppercase();
-
-    // lowercase the character
-
-    let character = character.to_lowercase().to_string();
+    let mut char_by_value = ('a'..='z').collect::<Vec<char>>();
+    char_by_value.extend('A'..='Z'); // add uppercase characters into the mix
 
     // string to char
 
-    let character = character.chars().next().unwrap();
-
-    let char_score: u32 = match ASCII_LOWER.iter().position(|&v| v == character) {
+    let char_score: u32 = match char_by_value.iter().position(|&v| v == character) {
         Some(v) => v as u32 + 1,
         None => 0
     };
 
-    if is_uppercase {
-        #[cfg(test)]
-        println!("{} is uppercase, so we're adding 26 to it's score", character);
-        #[cfg(test)]
-        println!("final score: {}", char_score + 26);
-        return char_score + 26;
-    } else {
-        #[cfg(test)]
-        println!("{} is lowercase, so we're not adding anything to it's score", character);
-        #[cfg(test)]
-        println!("final score: {}", char_score);
-        return char_score;
-    };
+    #[cfg(test)]
+    println!("final score: {}", char_score);
+    char_score
 }
+
 
 pub fn part_one(input: &str) -> Option<u32> {
     let sacks: Vec<(&str, &str)> = input.lines()
@@ -50,9 +25,6 @@ pub fn part_one(input: &str) -> Option<u32> {
             }
         )
         .collect();
-
-    // find the item in each sack that's nonunique, and use a dict to assess it's value
-
 
     let mut total_value = 0;
 
