@@ -11,6 +11,9 @@ pub fn part_one(input: &str) -> Option<u32> {
         for j in 0..window.len() {
             let char = &window[j..j+1];
 
+            #[cfg(test)]
+            println!("{char} {window}");
+
             if window.matches(char).count() > 1 {
                 has_duplicate = true;
                 break;
