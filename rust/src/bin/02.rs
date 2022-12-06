@@ -15,7 +15,7 @@ fn parse(input: &str) -> Pairs {
   input
     .lines()
     .map(
-      |p| p.split(" ")
+      |p| p.split(' ')
       .map(|v| match score_table.get(v) {
         Some(&v) => v,
         None => 0

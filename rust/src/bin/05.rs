@@ -1,5 +1,3 @@
-use std::convert::TryFrom;
-
 fn parse(input: &str) -> (Vec<Vec<&str>>, Vec<Vec<u32>>) {
     // figure out how to parse the top part
 
@@ -18,9 +16,7 @@ fn parse(input: &str) -> (Vec<Vec<&str>>, Vec<Vec<u32>>) {
     // for each row, remove any of the indexies that do not lie on the line y=2+4x
     // this is kind of a stupid solution but .replace is annyoing so...
 
-    for i in 0..raw_stacks.len() {
-        let row = &raw_stacks[i];
-
+    for row in &mut raw_stacks {
         let mut new_row: Vec<&str> = vec![];
 
         let mut j = 2;
@@ -31,7 +27,7 @@ fn parse(input: &str) -> (Vec<Vec<&str>>, Vec<Vec<u32>>) {
             j += 4;
         }
 
-        raw_stacks[i] = new_row
+       *row = new_row
     }
 
     raw_stacks.pop();
@@ -40,10 +36,8 @@ fn parse(input: &str) -> (Vec<Vec<&str>>, Vec<Vec<u32>>) {
 
     let mut stacks: Vec<Vec<&str>> = vec![vec![]; raw_stacks[0].len()];
 
-    for i in 0..raw_stacks.len() {
+    for row in raw_stacks { 
         
-        let row = &raw_stacks[i];
-
         for j in 0..row.len() {
             let crat = &row[j];
 
@@ -60,7 +54,7 @@ fn parse(input: &str) -> (Vec<Vec<&str>>, Vec<Vec<u32>>) {
         .replace(" to ", ",")
         .lines()
         .map(|inst| 
-            inst.split(",")
+            inst.split(',')
                 .map(|n| n.parse::<u32>().unwrap())
                 .collect()
         )

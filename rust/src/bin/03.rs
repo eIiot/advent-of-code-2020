@@ -28,8 +28,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 
     let mut total_value = 0;
 
-    for i in 0..sacks.len() {
-        let sack = &sacks[i];
+    for sack in &sacks {
         
         // for the first and last value in each array
 
@@ -59,8 +58,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 
     let mut total_value = 0;
 
-    for i in 0..groups.len() {
-        let group = &groups[i];
+    for group in &groups { 
         
         // for the first and last value in each array
 

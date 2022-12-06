@@ -1,7 +1,7 @@
 fn parse(input: &str) -> Vec<Vec<Vec<u32>>> {
     input.lines()
-    .map(|l| l.split(",")
-        .map(|p| p.split("-")
+    .map(|l| l.split(',')
+        .map(|p| p.split('-')
                 .map(|n| n.parse::<u32>().unwrap())
                 .collect()
             )
@@ -17,8 +17,7 @@ pub fn part_one(input: &str) -> Option<u32> {
         
     let mut set_includes_other: u32 = 0;
 
-    for i in 0..pairs.len() {
-        let pair = &pairs[i];
+    for pair in &pairs {
 
         #[cfg(test)]
         println!("{:?}", pair);
@@ -43,8 +42,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 
     let mut sets_overlapping: u32 = 0;
 
-        for i in 0..pairs.len() {
-        let pair = &pairs[i];
+    for pair in &pairs {
 
         #[cfg(test)]
         println!("{:?}", pair);
