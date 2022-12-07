@@ -83,6 +83,7 @@ fn sum_dir_sizes_with_space(map: &Directory, dir_that_works: &mut u32, space_nee
         }
     }
 
+    #[allow(clippy::collapsible_if)]
     if dir_size > space_needed {
         #[cfg(test)]
         println!("{} is bigger than the space needed", dir_size);
@@ -96,7 +97,7 @@ fn sum_dir_sizes_with_space(map: &Directory, dir_that_works: &mut u32, space_nee
 }
 
 fn parse(input: &str) -> Directory {
-    let lines: Vec<Vec<&str>> = input.lines().map(|line| line.split(" ").collect()).collect();
+    let lines: Vec<Vec<&str>> = input.lines().map(|line| line.split(' ').collect()).collect();
     
     let mut file_system: Directory = HashMap::new();
 
@@ -114,7 +115,7 @@ fn parse(input: &str) -> Directory {
 
                        match line[2] {
                             ".." => {
-                                if current_dir.len() > 0 {
+                                if !current_dir.is_empty() {
                                     current_dir.pop();
                                 }
                             }
